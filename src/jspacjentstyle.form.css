@@ -1,0 +1,70 @@
+/*********************************************************************
+
+      Nazwa pliku: oklstyle.form.css
+        Utworzony: 16.12.2005
+            Autor: Janusz Swó³ ©2005
+            Firma: PLL 'LOT' SA
+        Dzia³anie: Podstawowe style stron formularzy OKL'u
+         Podstawa:
+  Etap realizacji: Test
+            Uwagi:
+
+*********************************************************************/
+
+/********************************************************************/
+table.form {
+	border-style: outset outset outset outset;
+	border-color: Gray;
+	border-width: 1px, 4px, 4px, 4px;
+	border-collapse: collapse;
+	border-spacing: 10px, 10px;
+	margin-right: 0%;
+	margin-left: 0%;
+	empty-cells: show;
+	caption-side: top;
+}
+/********************************************************************/
+table.form tr {
+
+}
+/********************************************************************/
+table.form tr td {
+	border-style: inset;
+	border-color: Black;
+	border-spacing: 10px;
+	border-width: 1px;
+	padding-left: 10px;
+	padding-right: 10px;
+	text-align: left;
+	font: normal x-small "Times New Roman", Times, serif;
+}
+/********************************************************************/
+table.form caption {
+	border-style: solid;
+	border-color: Gray;
+	border-width: 3px;
+	vertical-align: middle;
+	text-align: center;
+	text-indent: 15px;
+	background-color: #DDDDDD;
+	word-spacing: 2px;
+	text-transform: capitalize;
+	line-height: normal;
+	letter-spacing: 2px;
+	font-family: "Courier New", Courier, monospace;
+	font-size: small;
+}
+/********************************************************************/
+table.form thead, table.form thead td {
+	background-color: Silver;
+	letter-spacing: 0px;
+	text-align: center;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	font: normal x-small "Times New Roman", Times, serif;
+}
+/********************************************************************/
+
+       

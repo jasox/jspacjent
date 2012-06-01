@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+  "-//Hibernate/Hibernate Mapping DTD 2.0//EN" 
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"> 
+<!--
+  Named Queries for the Hibernate implementation of this application. 
+  -->
+
+<hibernate-mapping 
+  auto-import="true" 
+  package="okl.roster.model">    
+   
+  <query name="getPacjentByNazwisko">
+    <![CDATA[      
+      from Pacjent p       
+      where 
+        upper( p.nazwisko ) like upper( :nazwisko )
+      order by 
+        p.nazwisko, p.imie  
+    ]]>
+  </query> 
+  
+  <query name="getPacjentByPesel">
+    <![CDATA[      
+      from Pacjent p      
+      where 
+        p.pesel = :pesel        
+      order by 
+        p.nazwisko, p.imie  
+    ]]>
+  </query> 
+  
+  <query name="getPrzyjecieByNazwisko">
+    <![CDATA[      
+      from Przyjecie prz      
+      where 
+        upper( prz.pacjent.nazwisko ) like upper( :nazwisko )
+      order by 
+        prz.ksg,
+        prz.nroddzial   
+    ]]>
+  </query> 
+  
+  <query name="getPrzyjecieByPesel">
+    <![CDATA[      
+      from Przyjecie prz       
+      where 
+        prz.pacjent.pesel = :pesel        
+      order by 
+        prz.ksg,
+        prz.nroddzial
+    ]]>
+  </query> 
+  
+  <query name="getPrzyjecieByDataPrz">
+    <![CDATA[      
+      from Przyjecie prz       
+      where 
+        year( prz.dataPrz )  = year( :dataPrz )  and        
+        month( prz.dataPrz ) = month( :dataPrz ) and 
+        day( prz.dataPrz )   = day( :dataPrz )  
+      order by 
+        prz.pacjent.nazwisko, prz.pacjent.imie  
+    ]]>
+  </query> 
+  
+  <query name="getPrzyjecieByDatyAndLekarz">
+    <![CDATA[      
+      from Przyjecie prz       
+      where 
+        ( prz.dataPrz >= :dataOd ) and        
+        ( prz.dataPrz <= :dataDo ) and 
+        ( prz.lekarz   = :lekarz )  
+      order by 
+        prz.ksg,
+        prz.nroddzial
+    ]]>
+  </query> 
+  
+  <query name="getPrzyjecieByDatyAndLekarzAndKsg">
+    <![CDATA[      
+      from Przyjecie prz       
+      where 
+        ( prz.dataPrz >= :dataOd ) and        
+        ( prz.dataPrz <= :dataDo ) and 
+        ( prz.lekarz   = :lekarz ) and
+        ( ( prz.ksg   like :ksg ) or ( prz.ksg is null ) )
+      order by 
+        prz.ksg,
+        prz.nroddzial
+    ]]>
+  </query>
+  
+  <query name="getPrzyjecieByDaty">
+    <![CDATA[      
+      from Przyjecie prz       
+      where 
+        ( prz.dataPrz >= :dataOd ) and        
+        ( prz.dataPrz <= :dataDo )  
+      order by 
+        prz.ksg,
+        prz.nroddzial
+    ]]>
+  </query>
+  
+  <query name="getPrzyjecieByDatyAndKsg">
+    <![CDATA[      
+      from Przyjecie prz       
+      where 
+        ( prz.dataPrz >= :dataOd ) and        
+        ( prz.dataPrz <= :dataDo ) and
+        ( ( prz.ksg   like :ksg ) or ( prz.ksg is null ) )
+      order by 
+        prz.ksg,
+        prz.nroddzial
+    ]]>
+  </query>
+  
+  <query name="getBadanieByPrzyjecie">
+    <![CDATA[      
+      select prz.badanies
+      from Przyjecie prz       
+      where 
+        prz = :przyjecie        
+      order by 
+        prz.badanies.data  
+    ]]>
+  </query> 
+  
+  <query name="getLeczenieByPrzyjecie">
+    <![CDATA[      
+      select prz.leczenies
+      from Przyjecie prz       
+      where 
+        prz = :przyjecie        
+      order by 
+        prz.leczenies.data  
+    ]]>
+  </query> 
+  
+  <!-- Maksymalny numer oddziałowy w bierzącym roku -->
+  <query name="getMaxNrOddzial">
+    <![CDATA[      
+      select max( prz.nroddzial )
+      from Przyjecie prz             
+      where 
+        ( year( prz.dataPrz ) = year( current_date() ) )
+        or 
+        ( ( '20' || prz.ksg ) like str( year( current_date() ) ) )
+    ]]>
+  </query> 
+  
+  <!-- Maksymalny numer głowny księgi w bierzącym roku -->
+  <query name="getMaxNrGlowny">
+    <![CDATA[      
+      select max( prz.nrglowny )
+      from Przyjecie prz
+      where 
+       ( year( prz.dataPrz ) = year( current_date() ) )
+       or 
+       ( ( '20' || prz.ksg ) like str( year( current_date() ) ) )      
+    ]]>
+  </query> 
+  
+  <!-- Zwraca wszystkie skierowania zapisane w bazie
+       ( miejsca z których i do których kierowni są pacjenci )   
+       jako listę stringów, podobne względem opisu do wzorca -->
+  <query name="getSkierowAsStringsLike">
+    <![CDATA[            
+      select s.opis 
+      from Skierow s 
+      where upper( s.opis ) like upper( :skierow )
+      order by s.opis
+    ]]>
+  </query> 
+  
+  
+  <!-- Zwraca wszystkie rozpoznania chorobowe zapisane w bazie  
+       jako listę stringów, podobne względem opisu do wzorca  -->
+  <query name="getRozpoznanieAsStringsLike">
+    <![CDATA[            
+      select r.opis 
+      from Rozpoznanie r 
+      where upper( r.opis ) like upper( :rozpoznanie )
+      order by r.opis
+    ]]>
+  </query> 
+  
+  <query name="getMinDateKsg">
+    <![CDATA[      
+      select min( prz.dataPrz )
+      from Przyjecie prz       
+      where ( prz.ksg like :ksg )       
+    ]]>
+  </query>
+      
+  
+</hibernate-mapping>

@@ -1,0 +1,70 @@
+/*********************************************************************
+
+      Nazwa pliku: oklstyle.rap.css
+        Utworzony: 16.12.2005
+            Autor: Janusz Swó³ ©2005
+            Firma: PLL 'LOT' SA
+        Dzia³anie: Podstawowe style stron raportów OKL'u
+         Podstawa:
+  Etap realizacji: Test
+            Uwagi:
+
+*********************************************************************/
+
+/********************************************************************/
+table.rap {
+	border-style: outset outset outset outset;
+	border-color: Gray;
+	border-width: 1px, 1px, 1px, 1px;
+	border-collapse: collapse;
+	border-spacing: 0px, 0px;
+	margin-right: 0%;
+	margin-left: 2%;
+	empty-cells: show;
+	caption-side: top;
+}
+/********************************************************************/
+table.rap tr {
+
+}
+/********************************************************************/
+table.rap tr td {
+	border-style: inset;
+	border-color: Black;
+	border-spacing: 0px;
+	border-width: 1px;
+	padding-left: 10px;
+	padding-right: 10px;
+	text-align: left;
+	font: normal small "Times New Roman", Times, serif;
+}
+/********************************************************************/
+table.rap caption {
+	border-style: solid;
+	border-color: Gray;
+	border-width: 3px;
+	vertical-align: middle;
+	text-align: center;
+	text-indent: 15px;
+	background-color: #DDDDDD;
+	word-spacing: 2px;
+	text-transform: capitalize;
+	line-height: normal;
+	letter-spacing: 2px;
+	font-family: "Courier New", Courier, monospace;
+	font-size: small;
+}
+/********************************************************************/
+table.rap thead, table.rap thead td {
+	background-color: Silver;
+	letter-spacing: 0px;
+	text-align: center;
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	font: normal small "Times New Roman", Times, serif;
+}
+/********************************************************************/
+
+       

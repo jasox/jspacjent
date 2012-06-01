@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC 
+"-//SPRING//DTD BEAN//EN" 
+"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>  
+
+  <bean
+    id="propertyConfigurer"
+    class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="locations">
+      <list>
+        <value>jdbc.properties</value>
+        <value>application.properties</value>
+      </list>
+    </property>
+  </bean>
+
+  <!-- The JNDI DataSource for J2EE environments 
+  <bean 
+    id="jndiDataSource" 
+    class="org.springframework.jndi.JndiObjectFactoryBean">
+    <property name="jndiName">
+      <value>java:comp/env/jdbc/boxoffice</value>
+    </property>
+  </bean>
+  -->
+
+  <!-- The DBCP DataSource 
+  <bean 
+    id="jspacjentDataSource" 
+    class="org.apache.commons.dbcp.BasicDataSource" 
+    destroy-method="close">
+    <property name="driverClassName">
+      <value>${jdbc.driverClassName}</value>
+    </property>
+    <property name="url">
+      <value>${jdbc.url}</value>
+    </property>
+    <property name="username">
+      <value>${jdbc.username}</value>
+    </property>
+    <property name="password">
+      <value>${jdbc.password}</value>
+    </property>
+  </bean>
+  -->
+
+  <!-- The P6Spy DataSource -->
+  <bean
+    id="jspacjentDataSource"
+    class="com.p6spy.engine.spy.P6DataSource">
+    <constructor-arg>
+      <bean
+        class="org.apache.commons.dbcp.BasicDataSource"
+        destroy-method="close">
+        <property name="driverClassName">
+          <value>${jdbc.driverClassName}</value>
+        </property>
+        <property name="url">
+          <value>${jdbc.url}</value>
+        </property>
+        <property name="username">
+          <value>${jdbc.username}</value>
+        </property>
+        <property name="password">
+          <value>${jdbc.password}</value>
+        </property>
+      </bean>
+    </constructor-arg>
+  </bean>
+      
+  
+  <!--  The c3p0 DataSource 
+  <bean
+    id="c3p0DataSource"
+    class="com.mchange.v2.c3p0.ComboPooledDataSource">
+    <property name="driverClass">
+      <value>${jdbc.driverClassName}</value>
+    </property>
+    <property name="jdbcUrl">
+      <value>${jdbc.url}</value>
+    </property>
+    <property name="user">
+      <value>${jdbc.username}</value>
+    </property>
+    <property name="password">
+      <value>${jdbc.password}</value>
+    </property>
+
+    <property name="checkoutTimeout">
+      <value>18000</value>
+    </property>
+    <property name="idleConnectionTestPeriod">
+      <value>3000</value>
+    </property>
+    <property name="initialPoolSize">
+      <value>1</value>
+    </property>
+    <property name="maxIdleTime">
+      <value>30</value>
+    </property>
+    <property name="propertyCycle">
+      <value>1</value>
+    </property>
+    <property name="maxPoolSize">
+      <value>10</value>
+    </property>
+    <property name="minPoolSize">
+      <value>1</value>
+    </property>
+    <property name="maxStatements">
+      <value>100</value>
+    </property>
+    <property name="maxStatementsPerConnection">
+      <value>5</value>
+    </property>
+  </bean>
+  -->
+
+  <!-- Hibernate Session Factory Bean -->
+  <bean
+    id="sessionFactory"
+    class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+    <property name="mappingResources">
+      <list>
+        <value>okl/jspacjent/model/Skierow.hbm.xml</value>
+        <value>okl/jspacjent/model/Pacjent.hbm.xml</value>
+        <value>okl/jspacjent/model/Leczenie.hbm.xml</value>
+        <value>okl/jspacjent/model/Lekarz.hbm.xml</value>        
+        <value>okl/jspacjent/model/Badanie.hbm.xml</value> 
+        <value>okl/jspacjent/model/Przyjecie.hbm.xml</value>
+        <value>okl/jspacjent/model/Rodzlecz.hbm.xml</value>
+        <value>okl/jspacjent/model/Rozpoznanie.hbm.xml</value>
+        <value>okl/jspacjent/model/Rodzbad.hbm.xml</value>
+        <value>okl/jspacjent/model/Kasach.hbm.xml</value>
+        <value>okl/jspacjent/model/queries.hbm.xml</value>
+      </list>
+    </property>
+    <property name="hibernateProperties">
+      <props>
+        <prop key="hibernate.dialect">
+          ${hibernate.dialect}
+        </prop>
+        <prop key="hibernate.cache.provider_class">
+          ${hibernate.cache.provider_class}
+        </prop>
+        <prop key="hibernate.cache.use_minimal_puts">false</prop>
+        <prop key="hibernate.cache.use_query_cache">false</prop>
+        <prop key="hibernate.max_fetch_depth">3</prop>
+        <prop key="hibernate.show_sql">true</prop>
+        <prop key="hibernate.format_sql">true</prop>
+        <prop key="hibernate.use_sql_comments">true</prop>
+      </props>
+    </property>
+    <property name="dataSource">
+      <ref local="jspacjentDataSource" />
+    </property>
+  </bean>
+  
+
+  <!-- The transactionmanager to use for regular non JTA datasource -->
+  <bean
+    id="transactionManager"
+    class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+    <property name="dataSource">
+      <ref local="jspacjentDataSource" />
+    </property>
+    <property name="sessionFactory">
+      <ref local="sessionFactory" />
+    </property>
+  </bean>
+  
+  
+  <!-- Hibernate DAO for application -->
+  <bean
+    id="dao"
+    class="okl.jspacjent.dao.hibernate.HibernateDAO">    
+    <constructor-arg>
+      <ref local="sessionFactory" />
+    </constructor-arg>
+  </bean>
+  
+  <!-- The utility class for this application -->
+  <bean
+    id="utilities"
+    class="okl.jspacjent.utility.Utilities">
+    <property name="pathToApplication">
+      <value>${app.pathToApplication}</value>
+    </property>
+    <property name="pathToViewer">
+      <value>${app.pathToViewer}</value>      
+    </property>
+    <property name="pathToData">
+      <value>${app.pathToData}</value>      
+    </property>
+  </bean>
+
+</beans>

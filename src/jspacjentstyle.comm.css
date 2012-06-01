@@ -1,0 +1,129 @@
+/*********************************************************************
+
+      Nazwa pliku: oklstyle.css
+        Utworzony: 16.12.2005
+            Autor: Janusz Swó³ ©2005
+            Firma: PLL 'LOT' SA
+        Dzia³anie: Podstawowe style stron OKL'u
+         Podstawa:
+  Etap realizacji: Test
+            Uwagi:
+
+*********************************************************************/
+body {
+  background-color: white
+}
+/********************************************************************/
+p {
+  color:black;
+  font-size:12pt;
+  text-align:justify;
+  font-family:arial,sans-serif
+}
+/********************************************************************/
+h1.header {
+  color: white;
+  font-size: 24pt;
+  text-align: center;
+  font-family: arial,sans-serif;
+  background-color: Black;
+}
+/********************************************************************/
+h2.header {
+  color: white;
+  font-size: 20pt;
+  text-align: center;
+  font-family: arial,sans-serif;
+  background-color: Black;
+}
+/********************************************************************/
+h3.header {
+  color: white;
+  font-size: 16pt;
+  text-align: center;
+  font-family: arial,sans-serif;
+  background-color: Black;
+}
+/********************************************************************/
+h4.header {
+  color: white;
+  font-size: 12pt;
+  text-align: center;
+  font-family: arial,sans-serif;
+  background-color: Black;
+}
+/********************************************************************/
+.menu {
+  color: white;
+  font-size: 12pt;
+  text-align: center;
+  font-family: arial,sans-serif;
+  font-weight: bold;
+  border-width: 5px, 5px, 5px, 5px;
+  border-collapse: collapse;
+  border-spacing: 0px, 0px, 0px, 0px;
+  margin-right: 0%;
+  margin-left: 0%;
+  border-color: Gray;
+}
+/********************************************************************/
+td.menu {
+  background: black;
+}
+/********************************************************************/
+table.menu {
+  width: 100%;
+}
+/********************************************************************/
+.header {
+  background-color: Black;
+  border-color: Gray;
+  margin-right: 0%;
+  margin-left: 0%;
+  text-align: justify;
+  padding-left: 0px;
+  padding-right: 0px;
+  border-spacing: 1px, 1px, 1px, 1px;
+  border-width: 1px, 1px, 1px, 1px;
+  border-collapse: collapse;
+}
+/********************************************************************/
+table.header, tr.header, td.header {
+  border-color: Gray;
+  width: 100%;		
+  margin-right: 0%;
+  margin-left: 0%;
+  text-align: justify;
+  padding-left: 0px;
+  padding-right: 0px;
+  border-spacing: 1px, 1px, 1px, 1px;
+  border-width: 1px, 1px, 1px, 1px;
+  border-collapse: collapse;
+}
+
+/********************************************************************/
+.foot {
+  color: white;
+  background: black;
+  border-style: outset outset outset outset;
+  border-color: Gray;
+  border-width: 1px, 1px, 1px, 1px;
+  border-collapse: collapse;
+  border-spacing: 0px, 0px, 0px, 0px;
+  margin-right: 0%;
+  margin-left: 0%;	
+  font-size: 10pt;
+  text-align: center;
+  font-family: arial,sans-serif;
+  font-weight: bold;
+  width: 100%;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+/********************************************************************/
+a:link,a:visited,a:active {
+  color:white
+}
+/********************************************************************/

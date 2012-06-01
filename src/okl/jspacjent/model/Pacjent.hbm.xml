@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2006-12-05 16:02:44 by Hibernate Tools 3.2.0.beta8 -->
+
+<hibernate-mapping>
+  <class
+    name="okl.jspacjent.model.Pacjent"
+    table="PACJENT"
+    schema="PUBLIC">
+    <id
+      name="idPacj"
+      type="long"
+      unsaved-value="0">
+      <column name="ID_PACJ" />
+      <generator class="native" />
+    </id>
+    <many-to-one
+      name="kasach"
+      class="okl.jspacjent.model.Kasach"
+      fetch="select"
+      lazy="false" >
+      <column name="ID_KASA" />
+    </many-to-one>
+    <property
+      name="pesel"
+      type="java.lang.Long">
+      <column
+        name="PESEL"
+        precision="11"
+        scale="0" />
+    </property>
+    <property
+      name="imie"
+      type="string">
+      <column
+        name="IMIE"
+        length="15" />
+    </property>
+    <property
+      name="nazwisko"
+      type="string">
+      <column
+        name="NAZWISKO"
+        length="25"
+        not-null="true" />
+    </property>
+    <property
+      name="wiek"
+      type="java.lang.Double">
+      <column
+        name="WIEK"
+        precision="17"
+        scale="0" />
+    </property>
+    <property
+      name="adres"
+      type="string">
+      <column
+        name="ADRES"
+        length="55" />
+    </property>
+    <property
+      name="kontakt"
+      type="string">
+      <column
+        name="KONTAKT"
+        length="35" />
+    </property>
+    <property
+      name="telkont"
+      type="string">
+      <column
+        name="TELKONT"
+        length="15" />
+    </property>
+    <property
+      name="uwagi"
+      type="string">
+      <column
+        name="UWAGI"
+        length="20" />
+    </property>
+    <set
+      name="przyjecies"
+      lazy="true"
+      inverse="true" 
+      cascade="all" 
+      order-by="DATA_PRZ">
+      <key>
+        <column
+          name="ID_PACJ"
+          not-null="true" />
+      </key>
+      <one-to-many class="okl.jspacjent.model.Przyjecie" />
+    </set>
+  </class>
+</hibernate-mapping>
