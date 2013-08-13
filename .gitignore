@@ -8,4 +8,15 @@ bak/
 bin/
 bin-1.4/
 lib/
-test/
+nbproject/
+
+#pliki
+
+/.gitignore
+/.springBeans
+/.project
+/.classpath
+/jpacjent.*
+/manifest
+
+
